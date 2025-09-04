@@ -32,7 +32,7 @@ jobs:
       - name: Checkout Terraform code repo
         uses: actions/checkout@v4
         with:
-          repository: <almazova09>/<project1-sonatype-nexus>
+          repository: almazova09/project1-sonatype-nexus
           token: ${{ secrets.GITHUB_TOKEN }}
           path: Terraform
 
