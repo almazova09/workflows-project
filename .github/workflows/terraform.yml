@@ -32,32 +32,32 @@ jobs:
       - name: Checkout Terraform code repo
         uses: actions/checkout@v4
         with:
-          repository: <almazova09>/<terraform-project>
+          repository: <almazova09>/<project1-sonatype-nexus>
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: terraform-code
+          path: Terraform
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.9.0
+          terraform_version: 1.12.2
   
       - name: Write tfvars
-        run: echo "${{ secrets.TF_VARS_FILE }}" > terraform-code/terraform.tfvars
+        run: echo "${{ secrets.TF_VARS_FILE }}" > terraform/terraform.tfvars
 
       - name: Terraform Init
-        working-directory: terraform-code
+        working-directory: Terraform
         run: terraform init -input=false
 
       - name: Terraform Plan
-        working-directory: terraform-code
+        working-directory: Terraform
         run: terraform plan -input=false -out=tfplan
 
       - name: Terraform Apply or Destroy
         if: ${{ github.event.inputs.action == 'apply' }}
-        working-directory: terraform-code
+        working-directory: Terraform
         run: terraform apply -auto-approve tfplan
 
       - name: Terraform Destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
-        working-directory: terraform-code
+        working-directory: Terraform
         run: terraform destroy -auto-approve -var-file=terraform.tfvars
