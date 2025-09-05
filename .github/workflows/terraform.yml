@@ -33,6 +33,16 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           path: Terraform
           ref: main
+      
+      - name: Debug list files
+        run: |
+          echo "PWD=$(pwd)"
+          echo "---- root ----"
+          ls -la
+          echo "---- Terraform ----"
+          ls -la Terraform || true
+          echo "---- find .tf ----"
+          find Terraform -maxdepth 3 -type f -name "*.tf" -o -name "*.tfvars" || true
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
