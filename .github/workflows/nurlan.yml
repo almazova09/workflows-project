@@ -54,15 +54,19 @@ jobs:
         run: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
 
       - name: Terraform Init
+        working-directory: terraform
         run: terraform init -input=false
 
       - name: Terraform Plan
+        working-directory: terraform
         run: terraform plan -input=false -out=tfplan
 
       - name: Terraform Apply or Destroy
         if: ${{ github.event.inputs.action == 'apply' }}
+        working-directory: terraform
         run: terraform apply -auto-approve tfplan
 
       - name: Terraform Destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
+        working-directory: terraform
         run: terraform destroy -auto-approve -var-file=terraform.tfvars
