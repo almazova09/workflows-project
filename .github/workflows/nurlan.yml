@@ -32,6 +32,12 @@ jobs:
         with:
           repository: NurlanKurmanaliev/terraform-project-nexus
     
+      - name: Checkout Terraform code repo
+        uses: actions/checkout@v4
+        with:
+          repository: NurlanKurmanaliev/terraform-project-nexus
+          token: ${{ secrets.GH_PAT }}
+          path: terraform
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
