@@ -32,7 +32,6 @@ jobs:
         with:
           repository: NurlanKurmanaliev/terraform-project-nexus
           token: ${{ secrets.GH_PAT_1 }}
-          path: terraform
           ref: main
 
       - name: Set up Terraform
@@ -48,7 +47,7 @@ jobs:
           aws-region: ${{ inputs.region }}
         
       - name: Write tfvars
-        run: echo "${{ vars.TF_VARS_FILE }}" > terraform/terraform.tfvars
+        run: echo "${{ vars.TF_VARS_FILE }}" > terraform.tfvars
 
       - name: Generate a key pair
         run: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
