@@ -42,10 +42,8 @@ jobs:
       - name: Write tfvars
         run: echo "${{ vars.TF_VARS_FILE }}" > terraform.tfvars
 
-      - name: Test
-        run: |
-            ls 
-            cat terraform.tfvars
+      - name: Generate a key pair
+        run: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
 
       - name: Terraform Init
         run: terraform init -input=false
