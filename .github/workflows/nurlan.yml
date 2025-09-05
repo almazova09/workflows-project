@@ -32,6 +32,7 @@ jobs:
         with:
           repository: NurlanKurmanaliev/terraform-project-nexus
           token: ${{ secrets.GH_PAT_1 }}
+          path: terraform
           ref: main
 
       - name: Set up Terraform
