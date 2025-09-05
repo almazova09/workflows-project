@@ -37,9 +37,15 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.5
+
   
       - name: Write tfvars
         run: echo "${{ env.TF_VARS_FILE }}" > terraform.tfvars
+
+      - name: Test
+        run: |
+            ls 
+            cat terraform.tfvars
 
       - name: Terraform Init
         run: terraform init -input=false
