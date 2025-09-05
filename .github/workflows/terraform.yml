@@ -34,7 +34,6 @@ jobs:
           path: Terraform
           ref: main
 
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -48,25 +47,25 @@ jobs:
           aws-region: ${{ inputs.region }}  
   
       - name: Write tfvars
-        run: echo "${{ secrets.TF_VARS_FILE }}" > Terraform/terraform.tfvars
+        run: echo "${{ secrets.TF_VARS_FILE }}" > Terraform/Terraform/terraform.tfvars
       
       - name: Generate a key pair
         run: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
 
       - name: Terraform Init
-        working-directory: Terraform
+        working-directory: Terraform/Terraform
         run: terraform init -input=false
 
       - name: Terraform Plan
-        working-directory: Terraform
+        working-directory: Terraform/Terraform
         run: terraform plan -input=false -out=tfplan
 
       - name: Terraform Apply or Destroy
         if: ${{ github.event.inputs.action == 'apply' }}
-        working-directory: Terraform
+        working-directory: Terraform/Terraform
         run: terraform apply -auto-approve tfplan
 
       - name: Terraform Destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
-        working-directory: Terraform
+        working-directory: Terraform/Terraform
         run: terraform destroy -auto-approve -var-file=terraform.tfvars
