@@ -40,7 +40,7 @@ jobs:
 
   
       - name: Write tfvars
-        run: echo "${{ env.TF_VARS_FILE }}" > terraform.tfvars
+        run: echo "${{ vars.TF_VARS_FILE }}" > terraform.tfvars
 
       - name: Test
         run: |
