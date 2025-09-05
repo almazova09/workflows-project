@@ -48,7 +48,7 @@ jobs:
           aws-region: ${{ inputs.region }}
         
       - name: Write tfvars
-        run: echo "${{ vars.TF_VARS_FILE }}" > terraform.tfvars
+        run: echo "${{ vars.TF_VARS_FILE }}" > terraform/terraform.tfvars
 
       - name: Generate a key pair
         run: ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
